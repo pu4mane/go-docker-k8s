@@ -10,7 +10,11 @@ clean:
 	rm -f ${APP}
 
 build: clean
-	CGO_ENABLED=0 GOOS=$(GOOS) GOARCH=$(GOARCH) go build -ldflags "-s -w -X ${PROJECT}/pkg/version.Release=${RELEASE} -X ${PROJECT}/pkg/version.Commit=${COMMIT} -X ${PROJECT}/pkg/version.BuildTime=${BUILD_TIME}" -o ${APP} ./cmd/main.go
+	CGO_ENABLED=0 GOOS=$(GOOS) GOARCH=$(GOARCH) go build \
+		-ldflags "-s -w -X ${PROJECT}/pkg/version.Release=${RELEASE} \
+		-X ${PROJECT}/pkg/version.Commit=${COMMIT} \
+		-X ${PROJECT}/pkg/version.BuildTime=${BUILD_TIME}" \
+		-o ${APP} ./cmd/main.go
 
 run: build
 	./${APP} -config=./configs/config.yaml
